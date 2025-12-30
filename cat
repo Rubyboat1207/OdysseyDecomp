@@ -1,0 +1,60 @@
+TARGET                                              CURRENT (325)                                   
+                                                    [2m[1m[4m; _ZN13LifeMaxUpItem16exeGotAppearCoinEv():[22m[24m     
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:79[22m
+                                                    [2m; void LifeMaxUpItem::exeGotAppearCoin() {[22m      
+1c8928:    stp     x20, x19, [sp, #-0x20]!          2bfc74:    stp     x20, x19, [sp, #-0x20]!      
+1c892c:    stp     x29, x30, [sp, #0x10]            2bfc78:    stp     x29, x30, [sp, #0x10]        
+1c8930:    add     x29, sp, #0x10                   2bfc7c:    add     x29, sp, #0x10               
+1c8934:    mov     x19, x0                          2bfc80:    mov     x19, x0                      
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:80[22m
+                                                    [2m;     int step = al::getNerveStep(this);[22m        
+                                                  [32m>[39m [32m2bfc84:[39m    [32mbl      37a56c[39m <_ZN2al12getNerveStepEPKNS_9IUseNerveE>
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:82[22m
+                                                    [2m;     if (this->coinValue > 0) {[22m                
+1c8938:    ldr     w8, [x19, [94m#0x11c[39m]              [94mi[39m 2bfc88:    ldr     w8, [x19, [94m#0x10c[39m]            
+1c893c:    cmp     w8, [94m#0x0[39m                       [94mi[39m 2bfc8c:    cmp     w8, [94m#0x1[39m                     
+[94m1c8940:[39m    [94mb.le    1c8998[39m [35m~>[39m                      [94m|[39m [94m2bfc90:[39m    [94mb.lt    2bfce8[39m <_ZN13LifeMaxUpItem16exeGotAppearCoinEv+0x74> [35m~>[39m
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:83[22m
+                                                    [2m;         al::HitSensor* sensor = al::getHitSensor(this, nullptr);[22m
+1c8944:    mov     x0, x19                          2bfc94:    mov     x0, x19                      
+1c8948:    mov     x1, xzr                          2bfc98:    mov     x1, xzr                      
+1c894c:    bl      8f1698                           2bfc9c:    bl      3ae470 <_ZN2al12getHitSensorEPKNS_9LiveActorEPKc@plt>
+1c8950:    mov     x20, x0                          2bfca0:    mov     x20, x0                      
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:84[22m
+                                                    [2m;         s32 step = al::getNerveStep(this);[22m    
+1c8954:    mov     x0, x19                          2bfca4:    mov     x0, x19                      
+1c8958:    bl      959c8c                           2bfca8:    bl      37a56c <_ZN2al12getNerveStepEPKNS_9IUseNerveE>
+1c895c:    adrp    x8, 187f000                      2bfcac:    adrp    x8, 28000 <vsnprintf+0x28000>
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:86[22m
+                                                    [2m;         if (rs::tryAppearMultiCoinFromObj(this, sensor, step, 150.0f))[22m
+1c8960:    ldr     s0, [x8, #0xcac]                 2bfcb0:    ldr     s0, [x8, #0x48]              
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:84[22m
+                                                    [2m;         s32 step = al::getNerveStep(this);[22m    
+1c8964:    mov     w2, w0                           2bfcb4:    mov     w2, w0                       
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:86[22m
+                                                    [2m;         if (rs::tryAppearMultiCoinFromObj(this, sensor, step, 150.0f))[22m
+1c8968:    mov     x0, x19                          2bfcb8:    mov     x0, x19                      
+1c896c:    mov     x1, x20                          2bfcbc:    mov     x1, x20                      
+1c8970:    bl      556360                           2bfcc0:    bl      310b1c <_ZN2rs25tryAppearMultiCoinFromObjEPN2al9LiveActorEPNS0_9HitSensorEif>
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:87[22m
+                                                    [2m;             coinValue -= 1;[22m                   
+1c8974:    ldr     w8, [x19, [94m#0x11c[39m]              [94mi[39m 2bfcc4:    ldr     w8, [x19, [94m#0x10c[39m]            
+1c8978:    tbz     w0, #0x0, 1c8984 [36m~>[39m              2bfcc8:    tbz     w0, #0x0, 2bfcd4 <_ZN13LifeMaxUpItem16exeGotAppearCoinEv+0x60> [36m~>[39m
+1c897c:    sub     w8, w8, #0x1                     2bfccc:    sub     w8, w8, #0x1                 
+1c8980:    str     w8, [x19, [94m#0x11c[39m]              [94mi[39m 2bfcd0:    str     w8, [x19, [94m#0x10c[39m]            
+1c8984: [36m~>[39m cmp     w8, #0x0                         2bfcd4: [36m~>[39m cmp     w8, #0x0                     
+1c8988:    b.le    1c8998 [35m~>[39m                        2bfcd8:    b.le    2bfce8 <_ZN13LifeMaxUpItem16exeGotAppearCoinEv+0x74> [35m~>[39m
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:93[22m
+                                                    [2m; }[22m                                             
+1c898c:    ldp     x29, x30, [sp, #0x10]            2bfcdc:    ldp     x29, x30, [sp, #0x10]        
+1c8990:    ldp     x20, x19, [sp], #0x20            2bfce0:    ldp     x20, x19, [sp], #0x20        
+1c8994:    ret                                      2bfce4:    ret                                  
+                                                    [2m[1m; /home/rubyboat/dev/cpp/OdysseyDecomp/src/Item/LifeMaxUpItem.cpp:92[22m
+                                                    [2m;     al::setNerve(this, &NrvLifeMaxUpItem.GotDeadWait);[22m
+1c8998: [35m~>[39m ldp     x29, x30, [sp, #0x10]            2bfce8: [35m~>[39m ldp     x29, x30, [sp, #0x10]        
+1c899c:    adrp    x8, 1cbb000                      2bfcec:    adrp    x8, 3d7000 <_ZTC9CoinStack0_N2al9LiveActorE+0x80>
+1c89a0:    add     x8, x8, #0x890                   2bfcf0:    add     x8, x8, #0x5d8               
+1c89a4:    add     x1, x8, #0x30                    2bfcf4:    add     x1, x8, #0x30                
+1c89a8:    mov     x0, x19                          2bfcf8:    mov     x0, x19                      
+1c89ac:    ldp     x20, x19, [sp], #0x20            2bfcfc:    ldp     x20, x19, [sp], #0x20        
+1c89b0:    b       [94m959af4[39m [32m~>[39m                      [94mi[39m 2bfd00:    b       [94m37a408[39m <_ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE> [32m~>[39m

@@ -8,6 +8,10 @@
 namespace al {
 struct ActorInitInfo;
 class HitSensor;
+struct FlashingCtrlDither {
+    void end();
+    void start(int time);
+};
 }  // namespace al
 
 class LifeMaxUpItem : public al::LiveActor {
@@ -36,5 +40,10 @@ public:
     void exeGotDeadWait();
 
 private:
-    char filler[0x48];
+    char pad[0x2];
+    al::FlashingCtrlDither* flashingCtrlDither;
+    bool fromAmiibo;
+    int coinValue;
+    int intangibilityTimer;
+    char pad2[0x26];
 };
