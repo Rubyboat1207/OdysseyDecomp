@@ -8,6 +8,7 @@
 namespace al {
 struct ActorInitInfo;
 class HitSensor;
+
 struct FlashingCtrlDither {
     void end();
     void start(int time);

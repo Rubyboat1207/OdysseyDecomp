@@ -7,9 +7,9 @@
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorPoseUtil.h"
 #include "Library/LiveActor/ActorSensorUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "Library/Nerve/NerveSetupUtil.h"
 #include "Library/Nerve/NerveUtil.h"
-#include "Library/Math/MathUtil.h"
 
 #include "Util/ItemUtil.h"
 #include "Util/SensorMsgFunction.h"
@@ -42,11 +42,9 @@ void LifeMaxUpItem::appear() {
 }
 
 void LifeMaxUpItem::control() {
-    if(
-        al::isNerve(this, &NrvLifeMaxUpItem.Appeared) ||
+    if (al::isNerve(this, &NrvLifeMaxUpItem.Appeared) ||
         al::isNerve(this, &NrvLifeMaxUpItem.StayPlacedPos) ||
-        al::isNerve(this, &NrvLifeMaxUpItem.WaterFallWorld)
-    ) {
+        al::isNerve(this, &NrvLifeMaxUpItem.WaterFallWorld)) {
         intangibilityTimer = intangibilityTimer > 0 ? intangibilityTimer - 1 : 0;
         waterTimer = waterTimer > 0 ? waterTimer - 1 : 0;
 
@@ -69,7 +67,7 @@ void LifeMaxUpItem::appearAmiiboTouch(const sead::Vector3f& position) {
 void LifeMaxUpItem::appearPopUp() {
     appear();
 
-    sead::Vector3f frontDir{0,0,0};
+    sead::Vector3f frontDir{0, 0, 0};
     al::calcFrontDir(&frontDir, this);
 
     sead::Vector3f goal = frontDir * 3.1f;
@@ -86,7 +84,7 @@ void LifeMaxUpItem::appearPopUp() {
 void LifeMaxUpItem::appearPopUpAbove() {
     appear();
 
-    sead::Vector3f frontDir{0,0,0};
+    sead::Vector3f frontDir{0, 0, 0};
     al::calcFrontDir(&frontDir, this);
     sead::Vector3f gravity = al::getGravity(this);
     sead::Vector3f inverseGravity = -gravity;
@@ -106,7 +104,7 @@ void LifeMaxUpItem::appearPopUpAbove() {
 void LifeMaxUpItem::appearSlot() {
     appear();
 
-    sead::Vector3f frontDir{0,0,0};
+    sead::Vector3f frontDir{0, 0, 0};
     al::calcFrontDir(&frontDir, this);
 
     sead::Vector3f goal = frontDir * 3.1f;
@@ -122,9 +120,9 @@ void LifeMaxUpItem::appearSlot() {
 }
 
 void LifeMaxUpItem::appearPopUpDir(const sead::Quatf& dir) {
-        appear();
+    appear();
 
-    sead::Vector3f frontDir{0,0,0};
+    sead::Vector3f frontDir{0, 0, 0};
     al::setQuat(this, dir);
     al::calcFrontDir(&frontDir, this);
 
@@ -147,7 +145,7 @@ void LifeMaxUpItem::exeGotAppearCoin() {
 
         if (rs::tryAppearMultiCoinFromObj(this, sensor, step, 150.0f))
             coinValue -= 1;
-        
+
         if (coinValue > 0)
             return;
     }
