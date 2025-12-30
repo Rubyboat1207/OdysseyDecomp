@@ -9,6 +9,7 @@
 #include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/Nerve/NerveSetupUtil.h"
 #include "Library/Nerve/NerveUtil.h"
+#include "Library/Math/MathUtil.h"
 
 #include "Util/ItemUtil.h"
 #include "Util/SensorMsgFunction.h"
@@ -24,7 +25,7 @@ NERVE_IMPL(LifeMaxUpItem, GotWaitLifeUpDemo);
 NERVE_IMPL(LifeMaxUpItem, GotAppearCoin);
 NERVE_IMPL(LifeMaxUpItem, GotDeadWait);
 
-NERVES_MAKE_STRUCT(LifeMaxUpItem, Appeared, StayPlacedPos, WaterFallWorld, AutoGetDemo,
+NERVES_MAKE_STRUCT(LifeMaxUpItem, WaterFallWorld, StayPlacedPos, Appeared, AutoGetDemo,
                    GotWaitLifeUpDemo, GotAppearCoin, GotDeadWait);
 }  // namespace
 
@@ -38,6 +39,19 @@ void LifeMaxUpItem::appear() {
     flashingCtrlDither->end();
     fromAmiibo = false;
     coinValue = 10;
+}
+
+void LifeMaxUpItem::control() {
+    if(
+        al::isNerve(this, &NrvLifeMaxUpItem.Appeared) ||
+        al::isNerve(this, &NrvLifeMaxUpItem.StayPlacedPos) ||
+        al::isNerve(this, &NrvLifeMaxUpItem.WaterFallWorld)
+    ) {
+        intangibilityTimer = intangibilityTimer > 0 ? intangibilityTimer - 1 : 0;
+        waterTimer = waterTimer > 0 ? waterTimer - 1 : 0;
+
+        angle = al::modf(spinSpeed + angle + 360.0f, 360.0f) + 0.0f;
+    }
 }
 
 void LifeMaxUpItem::appearAmiiboTouch(const sead::Vector3f& position) {
@@ -55,21 +69,74 @@ void LifeMaxUpItem::appearAmiiboTouch(const sead::Vector3f& position) {
 void LifeMaxUpItem::appearPopUp() {
     appear();
 
-    sead::Vector3f direction(0,0,0);
-    al::calcFrontDir(&direction, this);
-    direction *= 3.1;
+    sead::Vector3f frontDir{0,0,0};
+    al::calcFrontDir(&frontDir, this);
 
+    sead::Vector3f goal = frontDir * 3.1f;
     sead::Vector3f gravity = al::getGravity(this);
 
-    sead::Vector3f velocity{};
-
-    velocity.y = direction.y - gravity.y * 11;
-    velocity.x = direction.x - gravity.x * 11;
-    velocity.z = direction.z - gravity.z * 11;
+    sead::Vector3f velocity = goal - gravity * 11;
 
     al::setVelocity(this, velocity);
     al::startAction(this, "AppearPopUp");
     al::startHitReaction(this, "飛出し出現");
+    al::setNerve(this, &NrvLifeMaxUpItem.Appeared);
+}
+
+void LifeMaxUpItem::appearPopUpAbove() {
+    appear();
+
+    sead::Vector3f frontDir{0,0,0};
+    al::calcFrontDir(&frontDir, this);
+    sead::Vector3f gravity = al::getGravity(this);
+    sead::Vector3f inverseGravity = -gravity;
+
+    sead::Quatf pose{};
+    al::makeQuatUpFront(&pose, inverseGravity, frontDir);
+    al::updatePoseQuat(this, pose);
+
+    gravity = al::getGravity(this);
+    sead::Vector3f velocity = gravity * -11.0f;
+    al::setVelocity(this, velocity);
+    al::startAction(this, "AppearAbove");
+    al::startHitReaction(this, "飛出し出現");
+    al::setNerve(this, &NrvLifeMaxUpItem.Appeared);
+}
+
+void LifeMaxUpItem::appearSlot() {
+    appear();
+
+    sead::Vector3f frontDir{0,0,0};
+    al::calcFrontDir(&frontDir, this);
+
+    sead::Vector3f goal = frontDir * 3.1f;
+
+    sead::Vector3f gravity = al::getGravity(this);
+
+    sead::Vector3f velocity = goal - gravity * 11;
+
+    al::setVelocity(this, velocity);
+    al::startAction(this, "AppearPopUp");
+    al::startHitReaction(this, "スロット出現");
+    al::setNerve(this, &NrvLifeMaxUpItem.Appeared);
+}
+
+void LifeMaxUpItem::appearPopUpDir(const sead::Quatf& dir) {
+        appear();
+
+    sead::Vector3f frontDir{0,0,0};
+    al::setQuat(this, dir);
+    al::calcFrontDir(&frontDir, this);
+
+    sead::Vector3f goal = frontDir * 3.1f;
+
+    sead::Vector3f gravity = al::getGravity(this);
+
+    sead::Vector3f velocity = goal - gravity * 11;
+
+    al::setVelocity(this, velocity);
+    al::startAction(this, "AppearPopUp");
+    al::startHitReaction(this, "スロット出現");
     al::setNerve(this, &NrvLifeMaxUpItem.Appeared);
 }
 
@@ -80,6 +147,7 @@ void LifeMaxUpItem::exeGotAppearCoin() {
 
         if (rs::tryAppearMultiCoinFromObj(this, sensor, step, 150.0f))
             coinValue -= 1;
+        
         if (coinValue > 0)
             return;
     }

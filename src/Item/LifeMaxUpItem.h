@@ -45,5 +45,9 @@ private:
     bool fromAmiibo;
     int coinValue;
     int intangibilityTimer;
-    char pad2[0x26];
+    char pad2[0x14];
+    int waterTimer;
+    float spinSpeed;
+    float angle;
+    char pad3[0x5];
 };
