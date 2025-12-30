@@ -45,10 +45,11 @@ void LifeMaxUpItem::control() {
     if (al::isNerve(this, &NrvLifeMaxUpItem.Appeared) ||
         al::isNerve(this, &NrvLifeMaxUpItem.StayPlacedPos) ||
         al::isNerve(this, &NrvLifeMaxUpItem.WaterFallWorld)) {
-        intangibilityTimer = intangibilityTimer > 0 ? intangibilityTimer - 1 : 0;
-        waterTimer = waterTimer > 0 ? waterTimer - 1 : 0;
+        
+        intangibilityTimer = sead::Mathi::clampMin(intangibilityTimer - 1, 0);
+        waterTimer = sead::Mathi::clampMin(waterTimer - 1, 0);
 
-        angle = al::modf(spinSpeed + angle + 360.0f, 360.0f) + 0.0f;
+        angle = 0 + al::modf(angle + spinSpeed + 360.0f, 360.0f);
     }
 }
 
