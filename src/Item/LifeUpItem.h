@@ -56,3 +56,12 @@ private:
     bool mIsValidateClipping = true;
     bool _145 = false;
 };
+
+namespace LifeUpItemFunction {
+    // the final parameter seems to be unused for all of these functions
+    bool updateSurfaceFinder(WaterSurfaceFinder* finder, al::LiveActor* actor, float);
+    bool updateSurfaceFinder(FireSurfaceFinder* finder, al::LiveActor* actor, float);
+
+    void updateVelocityInWaterAndFire(al::LiveActor* actior, WaterSurfaceFinder* waterFinder,
+                                      FireSurfaceFinder* fireFinder, float damping, float);
+}

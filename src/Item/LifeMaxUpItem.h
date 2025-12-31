@@ -4,16 +4,15 @@
 #include <math/seadVector.h>
 
 #include "Library/LiveActor/LiveActor.h"
+#include "Library/Movement/FlashingCtrlDither.h"
 
 namespace al {
 struct ActorInitInfo;
 class HitSensor;
-
-struct FlashingCtrlDither {
-    void end();
-    void start(int time);
-};
 }  // namespace al
+
+class WaterSurfaceFinder;
+class FireSurfaceFinder;
 
 class LifeMaxUpItem : public al::LiveActor {
 public:
@@ -42,13 +41,17 @@ public:
 
 private:
     char pad[0x2];
-    al::FlashingCtrlDither* flashingCtrlDither;
-    bool fromAmiibo;
-    int coinValue;
-    int intangibilityTimer;
+    al::FlashingCtrlDither* mFlashingCtrlDither;
+    bool mFromAmiibo;
+    int mCoinValue;
+    int mIntangibilityTimer;
     char pad2[0x14];
-    int waterTimer;
-    float spinSpeed;
-    float angle;
+    WaterSurfaceFinder* mWaterSurfaceFinder;
+    FireSurfaceFinder* mFireSurfaceFinder;
+    int mWaterTimer;
+    float mSpinSpeed;
+    float mAngle;
     char pad3[0x5];
 };
+
+void tryStartPlayingAnimation(al::LiveActor* actor, const char* name);
