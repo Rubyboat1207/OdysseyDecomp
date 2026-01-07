@@ -155,14 +155,11 @@ void LifeMaxUpItem::exeAppeared() {
         return;
     }
 
-    sead::Vector3f translation = al::getTrans(this);
 
-    sead::Vector3f check_pos = translation + sead::Vector3f(0, 130.0f, 0);
+    sead::Vector3f check_pos = al::getTrans(this) + sead::Vector3f(0, 130.0f, 0);
 
     bool is_upper_in_water = al::isInWaterPos(this, check_pos);
-    sead::Vector3f translationAgain = al::getTrans(this);
-
-    check_pos = translationAgain + sead::Vector3f(0, 15.0f, 0);
+    check_pos = al::getTrans(this) + sead::Vector3f(0, 15.0f, 0);
 
     bool is_lower_in_water = al::isInWaterPos(this, check_pos);
 
