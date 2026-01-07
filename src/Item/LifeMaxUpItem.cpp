@@ -15,6 +15,7 @@
 #include "Library/Nerve/NerveUtil.h"
 
 #include "Util/ItemUtil.h"
+#include "Util/PlayerUtil.h"
 #include "Util/SensorMsgFunction.h"
 
 #include "LifeMaxUpItem.h"
@@ -208,6 +209,40 @@ void LifeMaxUpItem::exeAppeared() {
     return;
 }
 
+void LifeMaxUpItem::exeStayPlacedPos() {
+    if(al::isFirstStep(this)) {
+        al::startAction(this, "Wait");
+        mSpinSpeed = 2;
+    }
+}
+
+void LifeMaxUpItem::exeWaterFallWorld() {
+    if(al::isFirstStep(this)) {
+        al::startAction(this, "Wait");
+        mSpinSpeed = 2;
+    }
+    if(!mCollisionPartsConnector) {
+        al::addVelocityToGravityLimit(this, .4f, 20.f);
+        tryStartPlayingAnimation(this, "Wait");
+
+        if(al::isOnGround(this, 0)) {
+            al::setVelocityZeroV(this);
+            if(mWaterTimer == 0) {
+                al::startAction(this, "Land");
+                if(al::isInvalidClipping(this)) {
+                    al::validateClipping(this);
+                }
+            }
+            mWaterTimer = 20;
+        }
+    }else {
+        if(mCollisionPartsConnector->isConnectInvalidCollision()) {
+            mCollisionPartsConnector = nullptr;
+            al::invalidateClipping(this);
+        }
+    }
+}
+
 void LifeMaxUpItem::exeGotAppearCoin() {
     if (this->mCoinValue > 0) {
         al::HitSensor* sensor = al::getHitSensor(this, nullptr);
@@ -221,6 +256,11 @@ void LifeMaxUpItem::exeGotAppearCoin() {
     }
 
     al::setNerve(this, &NrvLifeMaxUpItem.GotDeadWait);
+}
+
+void LifeMaxUpItem::exeGotDeadWait() {
+    rs::recoveryPlayerOxygen(this);
+    kill();
 }
 
 void tryStartPlayingAnimation(al::LiveActor* actor, const char* name) {

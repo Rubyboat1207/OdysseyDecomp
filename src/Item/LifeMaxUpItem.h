@@ -5,6 +5,7 @@
 
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Movement/FlashingCtrlDither.h"
+#include "Library/Collision/PartsConnector.h"
 
 namespace al {
 struct ActorInitInfo;
@@ -50,7 +51,8 @@ private:
     int mWaterTimer;
     float mSpinSpeed;
     float mAngle;
-    char pad3[0x5];
+    al::CollisionPartsConnector* mCollisionPartsConnector;
+    char pad3[0x1];
 };
 
 void tryStartPlayingAnimation(al::LiveActor* actor, const char* name);

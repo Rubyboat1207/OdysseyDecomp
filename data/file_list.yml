@@ -49109,11 +49109,11 @@ Item/LifeMaxUpItem.o:
   - offset: 0x1c872c
     size: 60
     label: _ZN13LifeMaxUpItem16exeStayPlacedPosEv
-    status: NotDecompiled
+    status: Matching
   - offset: 0x1c8768
     size: 208
     label: _ZN13LifeMaxUpItem17exeWaterFallWorldEv
-    status: NotDecompiled
+    status: Matching
   - offset: 0x1c8838
     size: 56
     label: _ZN13LifeMaxUpItem14exeAutoGetDemoEv
@@ -49129,7 +49129,7 @@ Item/LifeMaxUpItem.o:
   - offset: 0x1c89b4
     size: 44
     label: _ZN13LifeMaxUpItem14exeGotDeadWaitEv
-    status: NotDecompiled
+    status: Matching
   - offset: 0x1c89e0
     size: 8
     label: _ZNK12_GLOBAL__N_130LifeMaxUpItemNrvWaterFallWorld7executeEPN2al11NerveKeeperE
