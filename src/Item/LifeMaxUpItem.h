@@ -45,7 +45,6 @@ private:
     bool mFromAmiibo;
     int mCoinValue;
     int mIntangibilityTimer;
-    char pad2[0x14];
     WaterSurfaceFinder* mWaterSurfaceFinder;
     FireSurfaceFinder* mFireSurfaceFinder;
     int mWaterTimer;

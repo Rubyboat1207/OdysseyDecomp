@@ -157,7 +157,7 @@ void LifeMaxUpItem::exeAppeared() {
     sead::Vector3f translation = al::getTrans(this);
 
     sead::Vector3f check_pos = translation + sead::Vector3f(0, 130.0f, 0);
-    
+
     bool is_upper_in_water = al::isInWaterPos(this, check_pos);
     sead::Vector3f translationAgain = al::getTrans(this);
 
@@ -173,7 +173,6 @@ void LifeMaxUpItem::exeAppeared() {
     } else if (is_upper_in_water || is_lower_in_water) {
         al::addVelocityToGravityLimit(this, -.15f, 8.5f);
         al::tryStartActionIfNotPlaying(this, "Float");
-        return;
     } else {
         al::addVelocityToGravityLimit(this, .4f, 20.f);
         tryStartPlayingAnimation(this, "Wait");
@@ -200,19 +199,12 @@ void LifeMaxUpItem::exeAppeared() {
             al::scaleVelocityHV(this, .5f, 1.f);
     }
 
-    float rotationSpeed;
-    float goalSpeed;
 
-    if(al::isActionPlaying(this, "Wait") || al::isActionPlaying(this, "Land")) {
-        rotationSpeed = mSpinSpeed;
-        goalSpeed = 2.0f;
-    }else {
-        rotationSpeed = mSpinSpeed;
-        goalSpeed = 6.0f;
+    if (al::isActionPlaying(this, "Wait") || al::isActionPlaying(this, "Land")) {
+        mSpinSpeed = al::lerpValue(mSpinSpeed, 2, 0.035f);
+    } else {
+        mSpinSpeed = al::lerpValue(mSpinSpeed, 0, 0.035f);
     }
-
-    rotationSpeed = al::lerpValue(rotationSpeed, goalSpeed, 0.035f);
-    mSpinSpeed = rotationSpeed;
     return;
 }
 
